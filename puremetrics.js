@@ -1,3 +1,8 @@
+// ==ClosureCompiler==
+// @compilation_level ADVANCED_OPTIMIZATIONS
+// @output_file_name puremetrics.min.js
+// ==/ClosureCompiler==
+
 (function() {
     'use strict';
 
@@ -254,7 +259,7 @@
             var browser = _.deviceInfo.browser(userAgent, vendor, opera);
             var os = _.deviceInfo.os();
             deviceId = browser+'-'+userId;
-            url = url+'&b='+browser+'&bv='+_.deviceInfo.browserVersion(userAgent, vendor, opera)+'&os='+os+'&ul='+userLang+'&sd='+window.screen.colorDepth+'&sr='+window.screen.width+'x'+window.screen.height;
+            url = url+'&da=b:'+browser+'|bv:'+_.deviceInfo.browserVersion(userAgent, vendor, opera)+'|os:'+os+'|ul:'+userLang+'|sd:'+window.screen.colorDepth+'|sr:'+window.screen.width+'x'+window.screen.height;
         }
         if(_.isUndefined(lastSessionId)|| lastSessionId == 0){
             lastSessionId = Date.now();
