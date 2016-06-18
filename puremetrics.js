@@ -242,7 +242,7 @@
         var lastSessionId = _.getCookie('_pmls') || 0;
         var userId = _.getCookie('_pmai');
         var deviceId = _.getCookie('_pmdi');
-
+        var userLang = navigator.language || navigator.userLanguage;
         var url = CONFIG.PROTOCOL+CONFIG.API+'?sdkv='+LIB_VERSION;
         var ev = '';
         if(_.isUndefined(userId) || userId == ''){
