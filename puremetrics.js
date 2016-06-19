@@ -239,10 +239,8 @@
 
     PureMetrics.prototype.sessionStart = function(type) {
         if(_.isBlockedUA(userAgent)){
-            console.log('blocked');
             return;
         }
-        console.log('started');
         var currentTime = Date.now();
         var lastSessionId = _.getCookie('_pmls') || 0;
         var userId = _.getCookie('_pmai');
@@ -261,19 +259,19 @@
             deviceId = browser+'-'+userId;
             url = url+'&da=b:'+browser+'|bv:'+_.deviceInfo.browserVersion(userAgent, vendor, opera)+'|os:'+os+'|ul:'+userLang+'|sd:'+window.screen.colorDepth+'|sr:'+window.screen.width+'x'+window.screen.height;
         }
+        var lag = currentTime - lastSessionId;
         if(_.isUndefined(lastSessionId)|| lastSessionId == 0){
             lastSessionId = Date.now();
-        }else if( currentTime - lastSessionId < 1800000){
+        }else if( lag < 1800000){
             return;
         }
         ev += 'ss';
         if(!_.isUndefined(type)|| type != ''){
             ev+='-'+type;
         }
-        
         _.setCookie('_pmdi', deviceId);
         _.setCookie('_pmai', userId);
-        _.setCookie('_pmls', lastSessionId);
+        _.setCookie('_pmls', currentTime);
         var tzOffset = new Date().getTimezoneOffset();
         var userLang = navigator.language || navigator.userLanguage;
         //TODO check if the device details have been set to the server already, if not then resend
